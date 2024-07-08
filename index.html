@@ -1,0 +1,128 @@
+<html><head><base href="https://signature.io"><title>SignEase - Create and Download Digital Signatures</title><style>
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+  }
+  header {
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+  }
+  h1 {
+    margin: 0;
+  }
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  #signature-pad {
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    background-color: white;
+  }
+  button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button:hover {
+    background-color: #2980b9;
+  }
+  .feature {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #34495e;
+    color: white;
+  }
+</style></head><body>
+  <header>
+    <h1>SignEase</h1>
+    <p>Create and Download Digital Signatures on Any Device</p>
+  </header>
+
+  <main>
+    <div class="feature">
+      <h2>Draw Your Signature</h2>
+      <canvas id="signature-pad" width="400" height="200"></canvas>
+      <br>
+      <button id="clear">Clear</button>
+      <button id="save">Save Signature</button>
+    </div>
+
+    <div class="feature">
+      <h2>Key Features</h2>
+      <ul>
+        <li>Create signatures using touch or mouse input</li>
+        <li>Compatible with all devices, including Android phones</li>
+        <li>Download your signature as PNG, JPEG, or SVG</li>
+        <li>Secure and private - your signature is never stored on our servers</li>
+        <li>Adjust line thickness and color</li>
+        <li>Undo and redo functionality</li>
+      </ul>
+    </div>
+
+    <div class="feature">
+      <h2>How to Use</h2>
+      <ol>
+        <li>Use your finger, stylus, or mouse to draw your signature in the box above</li>
+        <li>Click "Clear" to start over if needed</li>
+        <li>When satisfied, click "Save Signature" to download your creation</li>
+        <li>Choose your preferred format (PNG, JPEG, or SVG) in the download dialog</li>
+      </ol>
+    </div>
+
+    <div class="feature">
+      <h2>Why Choose SignEase?</h2>
+      <p>SignEase leverages cutting-edge web technologies to provide a smooth, responsive signature creation experience across all devices. Our unique algorithm ensures your signature looks crisp and professional, whether you're using the latest iPhone or an older Android device. Plus, with our commitment to privacy, you can trust that your signature remains yours alone.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 SignEase. All rights reserved.</p>
+    <p><a href="https://signature.io/privacy">Privacy Policy</a> | <a href="https://signature.io/terms">Terms of Service</a></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+  <script>
+    const canvas = document.getElementById('signature-pad');
+    const signaturePad = new SignaturePad(canvas, {
+      backgroundColor: 'rgb(255, 255, 255)'
+    });
+
+    document.getElementById('clear').addEventListener('click', function() {
+      signaturePad.clear();
+    });
+
+    document.getElementById('save').addEventListener('click', function() {
+      if (signaturePad.isEmpty()) {
+        alert("Please provide a signature first.");
+      } else {
+        const dataURL = signaturePad.toDataURL();
+        const link = document.createElement('a');
+        link.download = 'signature.png';
+        link.href = dataURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    });
+  </script>
+</body></html>
